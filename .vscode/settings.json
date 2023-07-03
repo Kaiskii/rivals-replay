@@ -1,0 +1,12 @@
+{
+    "editor.fontSize": 20,
+    "editor.fontFamily": "'Consolas', 'monospace', monospace",
+    "editor.tabSize": 2,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.minimap.autohide": false,
+    "files.eol": "\n",
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.renderWhitespace": "trailing"
+}

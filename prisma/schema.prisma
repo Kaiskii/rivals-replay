@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model match {
+  id                      Int      @id @default(autoincrement())
+  url                     String
+  timestamp               Int
+  p1                      Int
+  p2                      Int
+  c1                      Int      @db.SmallInt
+  c2                      Int      @db.SmallInt
+  created_at              DateTime @default(now()) @db.Timestamptz(6)
+  player_match_p1Toplayer player   @relation("match_p1Toplayer", fields: [p1], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  player_match_p2Toplayer player   @relation("match_p2Toplayer", fields: [p2], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model player {
+  id                     Int       @id @default(autoincrement())
+  name                   String    @unique
+  created_at             DateTime? @default(now()) @db.Timestamptz(6)
+  match_match_p1Toplayer match[]   @relation("match_p1Toplayer")
+  match_match_p2Toplayer match[]   @relation("match_p2Toplayer")
+}
