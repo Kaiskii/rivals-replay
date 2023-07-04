@@ -98,10 +98,32 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
 
     const data = await prisma.match.findMany({
       where: {
-        p1: player1?.id,
-        p2: player2?.id,
-        c1: c1 ? Number(c1) : undefined,
-        c2: c2 ? Number(c2) : undefined
+        OR: [
+          {
+            p1: player1?.id,
+            p2: player2?.id,
+            c1: c1 ? Number(c1) : undefined,
+            c2: c2 ? Number(c2) : undefined
+          },
+          {
+            p1: player1?.id,
+            p2: player2?.id,
+            c1: c2 ? Number(c2) : undefined,
+            c2: c1 ? Number(c1) : undefined
+          },
+          {
+            p1: player2?.id,
+            p2: player1?.id,
+            c1: c1 ? Number(c1) : undefined,
+            c2: c2 ? Number(c2) : undefined
+          },
+          {
+            p1: player2?.id,
+            p2: player1?.id,
+            c1: c2 ? Number(c2) : undefined,
+            c2: c1 ? Number(c1) : undefined
+          }
+        ],
       },
       include: {
         player_match_p1Toplayer: true,
